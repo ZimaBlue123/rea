@@ -42,7 +42,7 @@ jobs:
       - name: Respect finalized release notes
         id: editorial
         env:
-          GH_TOKEN: ${{ secrets.RELEASE_PLEASE_TOKEN || secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.RELEASE_PLEASE_TOKEN || secrets.PAT || secrets.MY_PAT || secrets.GH_TOKEN || secrets.GITHUB_TOKEN }}
           GH_REPO: ${{ github.repository }}
         run: |
           finalized=$(gh api --paginate "repos/${GH_REPO}/pulls?state=open&base=main&per_page=100" \
@@ -53,11 +53,23 @@ jobs:
           fi
 
       - uses: googleapis/release-please-action@5c625bfb5d1ff62eadeeb3772007f7f66fdcf071 # v4.4.1
+        id: release_please
         if: steps.editorial.outputs.frozen != 'true'
+        continue-on-error: true
         with:
-          token: ${{ secrets.RELEASE_PLEASE_TOKEN || secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.RELEASE_PLEASE_TOKEN || secrets.PAT || secrets.MY_PAT || secrets.GH_TOKEN || secrets.GITHUB_TOKEN }}
           target-branch: main
           skip-github-release: true
+
+      - name: Report release proposal outcome
+        if: steps.editorial.outputs.frozen != 'true' && steps.release_please.outcome == 'failure'
+        run: |
+          echo "### ⚠️ Release Proposal Notice" >> "$GITHUB_STEP_SUMMARY"
+          echo "release-please was unable to create or update the release PR." >> "$GITHUB_STEP_SUMMARY"
+          echo "If using default GITHUB_TOKEN, GitHub Actions PR creation permission is disabled by default in repository settings." >> "$GITHUB_STEP_SUMMARY"
+          echo "To enable automatic release PR creation:" >> "$GITHUB_STEP_SUMMARY"
+          echo "1. In repo **Settings -> Actions -> General -> Workflow permissions**, check **Allow GitHub Actions to create and approve pull requests**." >> "$GITHUB_STEP_SUMMARY"
+          echo "2. Or provide a Personal Access Token with repo scope stored in Secrets as **RELEASE_PLEASE_TOKEN** (or **PAT** / **MY_PAT**)." >> "$GITHUB_STEP_SUMMARY"
 
   merged-release:
     name: Release reviewed main merge
@@ -100,7 +112,7 @@ jobs:
 
       - name: Validate finalized notes before release creation
         env:
-          GH_TOKEN: ${{ secrets.RELEASE_PLEASE_TOKEN || secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.RELEASE_PLEASE_TOKEN || secrets.PAT || secrets.MY_PAT || secrets.GH_TOKEN || secrets.GITHUB_TOKEN }}
           GH_REPO: ${{ github.repository }}
           RELEASE_PR: ${{ github.event.pull_request.number }}
           SOURCE_SHA: ${{ github.event.pull_request.merge_commit_sha }}
@@ -111,7 +123,7 @@ jobs:
       - uses: googleapis/release-please-action@5c625bfb5d1ff62eadeeb3772007f7f66fdcf071 # v4.4.1
         id: release
         with:
-          token: ${{ secrets.RELEASE_PLEASE_TOKEN || secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.RELEASE_PLEASE_TOKEN || secrets.PAT || secrets.MY_PAT || secrets.GH_TOKEN || secrets.GITHUB_TOKEN }}
           target-branch: main
           skip-github-release: false
           skip-github-pull-request: true
@@ -223,7 +235,7 @@ jobs:
       - name: Validate manual finalized notes before release creation
         if: inputs.phase == 'publish'
         env:
-          GH_TOKEN: ${{ secrets.RELEASE_PLEASE_TOKEN || secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.RELEASE_PLEASE_TOKEN || secrets.PAT || secrets.MY_PAT || secrets.GH_TOKEN || secrets.GITHUB_TOKEN }}
           GH_REPO: ${{ github.repository }}
           SOURCE_SHA: ${{ steps.branch.outputs.sha }}
         run: |
@@ -235,7 +247,7 @@ jobs:
         with:
           # A dedicated credential starts PR CI automatically; the built-in
           # token creates approval-required PR runs for maintainers to approve.
-          token: ${{ secrets.RELEASE_PLEASE_TOKEN || secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.RELEASE_PLEASE_TOKEN || secrets.PAT || secrets.MY_PAT || secrets.GH_TOKEN || secrets.GITHUB_TOKEN }}
           target-branch: ${{ inputs.release_branch }}
           skip-github-release: ${{ inputs.phase == 'prepare' }}
           skip-github-pull-request: ${{ inputs.phase == 'publish' }}
