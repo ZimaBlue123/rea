@@ -347,6 +347,8 @@ For exact options, prerequisites and result contracts:
 - [CLI and Evidence](docs/cli.md): commands, provider selection, snapshots, import/export and exit statuses.
 - [MCP contracts](docs/mcp-contracts.md) and [agent prompts](docs/mcp-prompts.md): tool results, sessions and guided investigations.
 - [Tool catalog](docs/mcp-contracts.md#generated-catalog): generated inventory of tools, providers and CLI commands.
+- [Skills index](SKILLS_INDEX.md): standardized agent skills registry with pre-flight check and post-execution SOPs.
+- [Pipeline architecture](scripts/pipeline/): modular execution pipeline for audit, skills standardization, and verification.
 - [Roadmap](docs/roadmap.md): planned work and capability trackers.
 
 Report vulnerabilities through [SECURITY.md](SECURITY.md).

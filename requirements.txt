@@ -1,0 +1,19 @@
+# ==============================================================================
+# REA Python Dependencies Specification
+# Generated via Automated Dependency Reconstruction
+# ==============================================================================
+
+# Core Binary Analysis & Symbolic Execution
+pyelftools>=0.30
+z3-solver>=4.12.0
+
+# Network Capture & HTTP/3 Protocol Analysis (bridge/mitmproxy & scripts/fixtures)
+mitmproxy>=10.0.0
+aioquic>=0.9.21
+
+# Documentation & Website Tooling (scripts/website & scripts/website_i18n)
+polib>=1.2.0
+cairosvg>=2.7.0
+
+# Exploit & Debugging Tooling (pwntools bridge, Linux/macOS only)
+pwntools>=4.11.0; sys_platform != "win32"
