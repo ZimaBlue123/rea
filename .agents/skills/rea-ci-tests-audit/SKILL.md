@@ -1,6 +1,8 @@
 ---
 name: rea-ci-tests-audit
 description: Audit REA CI and test suites for correctness, fixture drift, false passes, and measured performance; use for suite or workflow investigations and efficiency changes, rather than ordinary feature testing or a single test failure.
+metadata:
+  version: "1.0.0"
 ---
 
 # REA CI and tests audit
@@ -110,3 +112,14 @@ check final main against the tested tree after merging.
 Stop when the authorized work is verified, remaining benefits are unproven,
 or further changes would trade correctness for speculative speed. List genuine
 uncertainties without turning them into additional optimization rounds.
+
+
+## Pre-flight Check
+1. Verify target environment readiness and input boundaries.
+2. Confirm requisite permissions, dependencies, and provider availability.
+3. Validate parameters against strict schema definitions.
+
+## Post-execution Validation
+1. Verify generated artifacts against integrity and regression benchmarks.
+2. Ensure no unintended side-effects or untracked file leaks.
+3. Confirm that observation evidence and provenance are preserved.

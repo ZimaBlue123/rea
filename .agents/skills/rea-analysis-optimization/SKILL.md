@@ -1,6 +1,8 @@
 ---
 name: rea-analysis-optimization
 description: Optimize REA providers and shared analysis workflows for agent context, latency, CPU, and memory while preserving correctness and Evidence. Use for analysis bottlenecks and cache or query design; CI/test-suite optimization belongs to rea-ci-tests-audit.
+metadata:
+  version: "1.0.0"
 ---
 
 # REA analysis optimization
@@ -111,3 +113,14 @@ checks, before/after measurements, and remaining limits. Keep any integration
 record current with its tested revision and distinguish merged production work
 from experiment-only code. Stop when the demonstrated bottleneck is resolved
 or further benefit remains speculative.
+
+
+## Pre-flight Check
+1. Verify target environment readiness and input boundaries.
+2. Confirm requisite permissions, dependencies, and provider availability.
+3. Validate parameters against strict schema definitions.
+
+## Post-execution Validation
+1. Verify generated artifacts against integrity and regression benchmarks.
+2. Ensure no unintended side-effects or untracked file leaks.
+3. Confirm that observation evidence and provenance are preserved.

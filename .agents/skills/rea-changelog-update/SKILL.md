@@ -1,6 +1,8 @@
 ---
 name: rea-changelog-update
 description: Prepare or rewrite REA release changelogs and GitHub release notes from pinned Git history, with verified contributor thanks and Release Please synchronization.
+metadata:
+  version: "1.0.0"
 ---
 
 # REA changelog update
@@ -132,3 +134,14 @@ regenerate; expect editorial changes to be replaced.
 
 Existing releases without a contribution inventory retain their current
 publication path. Never retag or republish a package to correct release prose.
+
+
+## Pre-flight Check
+1. Verify target environment readiness and input boundaries.
+2. Confirm requisite permissions, dependencies, and provider availability.
+3. Validate parameters against strict schema definitions.
+
+## Post-execution Validation
+1. Verify generated artifacts against integrity and regression benchmarks.
+2. Ensure no unintended side-effects or untracked file leaks.
+3. Confirm that observation evidence and provenance are preserved.

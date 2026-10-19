@@ -353,3 +353,14 @@ Explain findings in plain language and tie them to returned evidence. When the
 user asks to build something, use normal coding tools and separate observed
 behavior from design choices. Close an opened native session with
 `close_binary` when the investigation is complete.
+
+
+## Pre-flight Check
+1. Verify target environment readiness and input boundaries.
+2. Confirm requisite permissions, dependencies, and provider availability.
+3. Validate parameters against strict schema definitions.
+
+## Post-execution Validation
+1. Verify generated artifacts against integrity and regression benchmarks.
+2. Ensure no unintended side-effects or untracked file leaks.
+3. Confirm that observation evidence and provenance are preserved.

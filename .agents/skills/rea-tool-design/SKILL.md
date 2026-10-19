@@ -1,6 +1,8 @@
 ---
 name: rea-tool-design
 description: Design or change REA investigation tools, CLI/MCP contracts, provider capabilities, and Evidence semantics.
+metadata:
+  version: "1.0.0"
 ---
 
 # REA tool design
@@ -18,3 +20,14 @@ For implementation or verification, consult [testing](../../../docs/testing.md)
 for the affected consumer and provider lanes, and
 [contributing](../../../CONTRIBUTING.md) for generated-file ownership. Read
 provider/workflow guides only as the task requires.
+
+
+## Pre-flight Check
+1. Verify target environment readiness and input boundaries.
+2. Confirm requisite permissions, dependencies, and provider availability.
+3. Validate parameters against strict schema definitions.
+
+## Post-execution Validation
+1. Verify generated artifacts against integrity and regression benchmarks.
+2. Ensure no unintended side-effects or untracked file leaks.
+3. Confirm that observation evidence and provenance are preserved.
